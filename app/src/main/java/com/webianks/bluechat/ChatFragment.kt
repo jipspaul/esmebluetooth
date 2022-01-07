@@ -42,13 +42,12 @@ class ChatFragment : Fragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val mView: View  = LayoutInflater.from(activity).inflate(R.layout.chat_fragment, container, false)
         initViews(mView)
         return mView
-    }
 
+    }
     private fun initViews(mView: View) {
 
         chatInput = mView.findViewById(R.id.chatInput)
@@ -69,11 +68,11 @@ class ChatFragment : Fragment(), View.OnClickListener {
             override fun afterTextChanged(s: Editable) {
 
                 if (s.isNotEmpty()) {
-                    chatIcon.setImageDrawable(activity.getDrawable(R.drawable.ic_send))
+                    chatIcon.setImageDrawable(activity?.getDrawable(R.drawable.ic_send))
                     sendButton.isClickable = true
                     sendButton.isEnabled = true
                 }else {
-                    chatIcon.setImageDrawable(activity.getDrawable(R.drawable.ic_send_depri))
+                    chatIcon.setImageDrawable(activity?.getDrawable(R.drawable.ic_send_depri))
                     sendButton.isClickable = false
                     sendButton.isEnabled = false
                 }
@@ -83,7 +82,7 @@ class ChatFragment : Fragment(), View.OnClickListener {
         sendButton.setOnClickListener(this)
 
 
-        chatAdapter = ChatAdapter(messageList.reversed(),activity)
+        chatAdapter = ChatAdapter(messageList.reversed(), activity!!.applicationContext)
         recyclerviewChat.adapter = chatAdapter
 
     }
@@ -109,7 +108,7 @@ class ChatFragment : Fragment(), View.OnClickListener {
     fun communicate(message: Message){
         messageList.add(message)
         if(activity != null) {
-            chatAdapter = ChatAdapter(messageList.reversed(), activity)
+            chatAdapter = ChatAdapter(messageList.reversed(), activity!!.applicationContext)
             recyclerviewChat.adapter = chatAdapter
             recyclerviewChat.scrollToPosition(0)
         }

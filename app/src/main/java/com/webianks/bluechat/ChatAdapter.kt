@@ -18,11 +18,11 @@ class ChatAdapter(val chatData: List<Message>, val context: Context) : RecyclerV
 
     val SENT = 0
     val RECEIVED = 1
-    var df: SimpleDateFormat = SimpleDateFormat("hh:mm a",Locale.getDefault())
+    var df: SimpleDateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        when(holder?.itemViewType){
+        when (holder?.itemViewType) {
 
             SENT -> {
                 val holder: SentHolder = holder as SentHolder
@@ -46,7 +46,7 @@ class ChatAdapter(val chatData: List<Message>, val context: Context) : RecyclerV
 
     override fun getItemViewType(position: Int): Int {
 
-        when(chatData[position].type){
+        when (chatData[position].type) {
             Constants.MESSAGE_TYPE_SENT -> return SENT
             Constants.MESSAGE_TYPE_RECEIVED -> return RECEIVED
         }
@@ -58,25 +58,25 @@ class ChatAdapter(val chatData: List<Message>, val context: Context) : RecyclerV
         return chatData.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): RecyclerView.ViewHolder {
 
-        when(viewType){
+        when (p1) {
             SENT -> {
-                val view = LayoutInflater.from(context).inflate(R.layout.sent_layout,parent,false)
+                val view = LayoutInflater.from(context).inflate(R.layout.sent_layout, parent, false)
                 return SentHolder(view)
             }
             RECEIVED -> {
-                val view = LayoutInflater.from(context).inflate(R.layout.received_layout,parent,false)
+                val view = LayoutInflater.from(context).inflate(R.layout.received_layout, parent, false)
                 return ReceivedHolder(view)
             }
             else -> {
-                val view = LayoutInflater.from(context).inflate(R.layout.sent_layout,parent,false)
+                val view = LayoutInflater.from(context).inflate(R.layout.sent_layout, parent, false)
                 return SentHolder(view)
             }
         }
     }
 
-    inner class SentHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class SentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var sentTV = itemView.findViewById<TextView>(R.id.sentMessage)
         var timeStamp = itemView.findViewById<TextView>(R.id.timeStamp)
     }
